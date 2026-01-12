@@ -10,7 +10,10 @@ import com.intellij.ui.components.JBPanel
 import com.intellij.ui.content.ContentFactory
 import com.github.yavidor.testinator.MyBundle
 import com.github.yavidor.testinator.services.MyProjectService
+import com.intellij.openapi.fileChooser.FileChooser
+import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import javax.swing.JButton
+import javax.swing.JFileChooser
 
 
 class MyToolWindowFactory : ToolWindowFactory {
@@ -32,12 +35,12 @@ class MyToolWindowFactory : ToolWindowFactory {
         private val service = toolWindow.project.service<MyProjectService>()
 
         fun getContent() = JBPanel<JBPanel<*>>().apply {
-            val label = JBLabel(MyBundle.message("randomLabel", "?"))
-
-            add(label)
+            val textField = TextFieldWithBrowseButton()
+            println("Hello")
+            val textForFun = JBLabel("Hello world")
+            add(textField).componentListeners.forEach { it -> println(it) }
             add(JButton(MyBundle.message("shuffle")).apply {
                 addActionListener {
-                    label.text = MyBundle.message("randomLabel", service.getRandomNumber())
                 }
             })
         }
